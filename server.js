@@ -22,7 +22,6 @@ app.use('/api', require('./routes/upload'))
 app.use('/api', require('./routes/productRouter'))
 app.use('/api', require('./routes/paymentRouter'))
 
-app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 // Connect to mongodb
@@ -43,6 +42,7 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     })
 }
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 app.get("*", (req, res) => {
@@ -53,4 +53,5 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () =>{
     console.log('Server is running on port', PORT)
 })
+
 
