@@ -35,6 +35,7 @@ mongoose.connect(URI, {
     if(err) throw err;
     console.log('Connected to MongoDB')
 })
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
@@ -42,12 +43,8 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     })
 }
-app.use(express.static(path.join(__dirname, "client", "build")))
 
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () =>{
